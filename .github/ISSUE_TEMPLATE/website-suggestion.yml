@@ -1,0 +1,109 @@
+name: Website Suggestion
+description: Suggest a genuinely useful website, tool, or resource for the UsefulHub directory.
+title: "[Website Suggestion]: "
+labels: ["website-suggestion", "pending-review"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping curate **UsefulHub**! Every submission is manually reviewed by an administrator before being added to the public directory.
+        Please check that the website is safe, practical, and not already listed.
+
+  - type: input
+    id: website-name
+    attributes:
+      label: Website Name
+      description: The official name of the website or tool.
+      placeholder: e.g. Excalidraw
+    validations:
+      required: true
+
+  - type: input
+    id: website-url
+    attributes:
+      label: Website URL
+      description: Full HTTPS URL (please avoid URL shorteners or referral links).
+      placeholder: https://example.com
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: Select the category that best fits this website.
+      options:
+        - AI & Machine Learning
+        - Developer Tools
+        - Design & Creativity
+        - Productivity
+        - Education & Learning
+        - Business & Marketing
+        - Finance
+        - Writing & Content
+        - Research
+        - Utilities
+        - Entertainment
+        - Security & Privacy
+        - Open Source
+        - Science
+        - Gaming
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Short Description
+      description: A concise, accurate 1-2 sentence description of what the website does.
+      placeholder: Virtual collaborative whiteboard for sketching hand-drawn diagrams and wireframes.
+    validations:
+      required: true
+
+  - type: textarea
+    id: why-useful
+    attributes:
+      label: Why should people use this website?
+      description: Explain what makes this site genuinely practical, trustworthy, or worth bookmarking. Mention if it has paid features.
+      placeholder: Fast, privacy-friendly, works right in the browser with no sign-up required.
+    validations:
+      required: true
+
+  - type: input
+    id: tags
+    attributes:
+      label: Suggested Tags (Optional)
+      description: Comma-separated keywords (e.g. Whiteboard, Diagrams, Free, Open Source).
+      placeholder: Diagrams, Collaboration, Free
+    validations:
+      required: false
+
+  - type: input
+    id: submitter-name
+    attributes:
+      label: Your Name or Handle (Optional)
+      description: Optional credit or display name.
+      placeholder: Jane Doe
+    validations:
+      required: false
+
+  - type: input
+    id: contact-email
+    attributes:
+      label: Contact Email (Optional)
+      description: Optional — remember GitHub issues are public. Leave blank if you prefer not to share your email publicly.
+      placeholder: Leave blank unless you want public follow-up
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: guidelines
+    attributes:
+      label: Submission Checklist
+      description: Confirm your suggestion meets our community guidelines.
+      options:
+        - label: This website is legitimate, safe, and provides real utility.
+          required: true
+        - label: I have checked that this website is not a duplicate or affiliate spam link.
+          required: true
