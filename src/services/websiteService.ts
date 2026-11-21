@@ -38,9 +38,14 @@ export function getWebsiteById(id: string): Website | undefined {
 export function getFeaturedWebsites(limit?: number): Website[] {
   const featured = sortWebsites(
     APPROVED_SITES.filter((site) => site.featured),
-    'recent'
+    'liked'
   );
   return typeof limit === 'number' ? featured.slice(0, limit) : featured;
+}
+
+export function getMostLikedWebsites(limit?: number): Website[] {
+  const sorted = sortWebsites(APPROVED_SITES, 'liked');
+  return typeof limit === 'number' ? sorted.slice(0, limit) : sorted;
 }
 
 export function getWebsitesByCategory(categoryNameOrSlug: string): Website[] {

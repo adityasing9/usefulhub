@@ -5,12 +5,18 @@
     "url": "https://chatgpt.com",
     "description": "Conversational AI assistant for drafting, coding help, brainstorming, and everyday research.",
     "category": "AI & Machine Learning",
-    "tags": ["AI", "Assistant", "Writing", "Coding"],
+    "tags": [
+      "AI",
+      "Assistant",
+      "Writing",
+      "Coding"
+    ],
     "favicon": "",
     "featured": true,
     "dateAdded": "2026-11-18",
     "approved": true,
-    "pricing": "Freemium"
+    "pricing": "Freemium",
+    "likes": 482
   },
   {
     "id": "gemini",
@@ -18,12 +24,18 @@
     "url": "https://gemini.google.com",
     "description": "Multimodal AI assistant from Google for reasoning, document analysis, coding, and creative work.",
     "category": "AI & Machine Learning",
-    "tags": ["AI", "Multimodal", "Research", "Productivity"],
+    "tags": [
+      "AI",
+      "Multimodal",
+      "Research",
+      "Productivity"
+    ],
     "favicon": "",
     "featured": true,
     "dateAdded": "2026-11-17",
     "approved": true,
-    "pricing": "Freemium"
+    "pricing": "Freemium",
+    "likes": 385
   },
   {
     "id": "claude",
@@ -31,12 +43,18 @@
     "url": "https://claude.ai",
     "description": "AI assistant focused on thoughtful writing, long-document synthesis, and software engineering.",
     "category": "AI & Machine Learning",
-    "tags": ["AI", "Writing", "Analysis", "Coding"],
+    "tags": [
+      "AI",
+      "Writing",
+      "Analysis",
+      "Coding"
+    ],
     "favicon": "",
     "featured": true,
     "dateAdded": "2026-11-16",
     "approved": true,
-    "pricing": "Freemium"
+    "pricing": "Freemium",
+    "likes": 412
   },
   {
     "id": "perplexity",
@@ -44,12 +62,18 @@
     "url": "https://www.perplexity.ai",
     "description": "Answer engine that pairs real-time web search with direct inline source citations.",
     "category": "AI & Machine Learning",
-    "tags": ["AI", "Search", "Citations", "Research"],
+    "tags": [
+      "AI",
+      "Search",
+      "Citations",
+      "Research"
+    ],
     "favicon": "",
     "featured": false,
     "dateAdded": "2026-11-15",
     "approved": true,
-    "pricing": "Freemium"
+    "pricing": "Freemium",
+    "likes": 348
   },
   {
     "id": "github",
@@ -57,12 +81,18 @@
     "url": "https://github.com",
     "description": "Code hosting, version control, issue tracking, and collaboration platform for software projects.",
     "category": "Developer Tools",
-    "tags": ["Git", "Code", "Open Source", "Collaboration"],
+    "tags": [
+      "Git",
+      "Code",
+      "Open Source",
+      "Collaboration"
+    ],
     "favicon": "",
     "featured": true,
     "dateAdded": "2026-11-14",
     "approved": true,
-    "pricing": "Freemium"
+    "pricing": "Freemium",
+    "likes": 495
   },
   {
     "id": "stack-overflow",
@@ -70,12 +100,18 @@
     "url": "https://stackoverflow.com",
     "description": "Community-driven Q&A knowledge base for programming questions and debugging solutions.",
     "category": "Developer Tools",
-    "tags": ["Q&A", "Programming", "Debugging", "Community"],
+    "tags": [
+      "Q&A",
+      "Programming",
+      "Debugging",
+      "Community"
+    ],
     "favicon": "",
     "featured": false,
     "dateAdded": "2026-11-12",
     "approved": true,
-    "pricing": "Free"
+    "pricing": "Free",
+    "likes": 430
   },
   {
     "id": "codepen",
@@ -83,12 +119,18 @@
     "url": "https://codepen.io",
     "description": "Browser-based front-end playground for prototyping and sharing HTML, CSS, and JavaScript.",
     "category": "Developer Tools",
-    "tags": ["Frontend", "Sandbox", "CSS", "JavaScript"],
+    "tags": [
+      "Frontend",
+      "Sandbox",
+      "CSS",
+      "JavaScript"
+    ],
     "favicon": "",
     "featured": false,
     "dateAdded": "2026-11-11",
     "approved": true,
-    "pricing": "Freemium"
+    "pricing": "Freemium",
+    "likes": 315
   },
   {
     "id": "replit",
@@ -96,12 +138,18 @@
     "url": "https://replit.com",
     "description": "Cloud development environment for writing, running, and deploying code directly in the browser.",
     "category": "Developer Tools",
-    "tags": ["IDE", "Cloud", "Prototyping", "Hosting"],
+    "tags": [
+      "IDE",
+      "Cloud",
+      "Prototyping",
+      "Hosting"
+    ],
     "favicon": "",
     "featured": false,
     "dateAdded": "2026-11-10",
     "approved": true,
-    "pricing": "Freemium"
+    "pricing": "Freemium",
+    "likes": 280
   },
   {
     "id": "mdn-web-docs",
@@ -109,12 +157,18 @@
     "url": "https://developer.mozilla.org",
     "description": "Comprehensive, authoritative documentation for web standards including HTML, CSS, and JavaScript.",
     "category": "Developer Tools",
-    "tags": ["Documentation", "Web Standards", "Reference", "Free"],
+    "tags": [
+      "Documentation",
+      "Web Standards",
+      "Reference",
+      "Free"
+    ],
     "favicon": "",
     "featured": false,
     "dateAdded": "2026-11-19",
     "approved": true,
-    "pricing": "Free"
+    "pricing": "Free",
+    "likes": 475
   },
   {
     "id": "figma",
@@ -122,12 +176,18 @@
     "url": "https://www.figma.com",
     "description": "Collaborative browser-based interface design, prototyping, and design system platform.",
     "category": "Design & Creativity",
-    "tags": ["UI", "UX", "Prototyping", "Vector"],
+    "tags": [
+      "UI",
+      "UX",
+      "Prototyping",
+      "Vector"
+    ],
     "favicon": "",
     "featured": true,
     "dateAdded": "2026-11-18",
     "approved": true,
-    "pricing": "Freemium"
+    "pricing": "Freemium",
+    "likes": 462
   },
   {
     "id": "excalidraw",
@@ -135,12 +195,18 @@
     "url": "https://excalidraw.com",
     "description": "Virtual hand-drawn whiteboard for sketching architecture diagrams, wireframes, and notes.",
     "category": "Design & Creativity",
-    "tags": ["Whiteboard", "Diagrams", "Open Source", "Privacy"],
+    "tags": [
+      "Whiteboard",
+      "Diagrams",
+      "Open Source",
+      "Privacy"
+    ],
     "favicon": "",
     "featured": true,
     "dateAdded": "2026-11-20",
     "approved": true,
-    "pricing": "Open Source"
+    "pricing": "Open Source",
+    "likes": 395
   },
   {
     "id": "photopea",
@@ -148,12 +214,18 @@
     "url": "https://www.photopea.com",
     "description": "Advanced browser-based photo and raster/vector graphics editor supporting PSD, XD, and Sketch files.",
     "category": "Design & Creativity",
-    "tags": ["Photo Editor", "PSD", "Graphics", "Browser"],
+    "tags": [
+      "Photo Editor",
+      "PSD",
+      "Graphics",
+      "Browser"
+    ],
     "favicon": "",
     "featured": false,
     "dateAdded": "2026-11-09",
     "approved": true,
-    "pricing": "Freemium"
+    "pricing": "Freemium",
+    "likes": 350
   },
   {
     "id": "canva",
@@ -161,12 +233,17 @@
     "url": "https://www.canva.com",
     "description": "Accessible online graphic design platform for presentations, social graphics, and print layouts.",
     "category": "Design & Creativity",
-    "tags": ["Templates", "Presentations", "Graphic Design"],
+    "tags": [
+      "Templates",
+      "Presentations",
+      "Graphic Design"
+    ],
     "favicon": "",
     "featured": false,
     "dateAdded": "2026-11-08",
     "approved": true,
-    "pricing": "Freemium"
+    "pricing": "Freemium",
+    "likes": 410
   },
   {
     "id": "notion",
@@ -174,12 +251,18 @@
     "url": "https://www.notion.so",
     "description": "Connected workspace combining documents, wikis, databases, and project tracking.",
     "category": "Productivity",
-    "tags": ["Notes", "Docs", "Wiki", "Workspace"],
+    "tags": [
+      "Notes",
+      "Docs",
+      "Wiki",
+      "Workspace"
+    ],
     "favicon": "",
     "featured": false,
     "dateAdded": "2026-11-13",
     "approved": true,
-    "pricing": "Freemium"
+    "pricing": "Freemium",
+    "likes": 425
   },
   {
     "id": "google-drive",
@@ -187,12 +270,17 @@
     "url": "https://drive.google.com",
     "description": "Cloud file storage and real-time collaborative suite for documents, spreadsheets, and slides.",
     "category": "Productivity",
-    "tags": ["Cloud Storage", "Collaboration", "Files"],
+    "tags": [
+      "Cloud Storage",
+      "Collaboration",
+      "Files"
+    ],
     "favicon": "",
     "featured": false,
     "dateAdded": "2026-11-07",
     "approved": true,
-    "pricing": "Freemium"
+    "pricing": "Freemium",
+    "likes": 390
   },
   {
     "id": "trello",
@@ -200,12 +288,17 @@
     "url": "https://trello.com",
     "description": "Visual Kanban boards, lists, and cards for organizing personal tasks and team workflows.",
     "category": "Productivity",
-    "tags": ["Kanban", "Tasks", "Project Management"],
+    "tags": [
+      "Kanban",
+      "Tasks",
+      "Project Management"
+    ],
     "favicon": "",
     "featured": false,
     "dateAdded": "2026-11-06",
     "approved": true,
-    "pricing": "Freemium"
+    "pricing": "Freemium",
+    "likes": 295
   },
   {
     "id": "khan-academy",
@@ -213,12 +306,18 @@
     "url": "https://www.khanacademy.org",
     "description": "Free, nonprofit educational platform offering structured lessons in math, science, economics, and humanities.",
     "category": "Education & Learning",
-    "tags": ["Math", "Science", "Courses", "Nonprofit"],
+    "tags": [
+      "Math",
+      "Science",
+      "Courses",
+      "Nonprofit"
+    ],
     "favicon": "",
     "featured": true,
     "dateAdded": "2026-11-17",
     "approved": true,
-    "pricing": "Free"
+    "pricing": "Free",
+    "likes": 380
   },
   {
     "id": "freecodecamp",
@@ -226,12 +325,18 @@
     "url": "https://www.freecodecamp.org",
     "description": "Free interactive coding curriculum with hands-on projects and developer certifications.",
     "category": "Education & Learning",
-    "tags": ["Coding", "Tutorials", "Nonprofit", "Certifications"],
+    "tags": [
+      "Coding",
+      "Tutorials",
+      "Nonprofit",
+      "Certifications"
+    ],
     "favicon": "",
     "featured": false,
     "dateAdded": "2026-11-15",
     "approved": true,
-    "pricing": "Free"
+    "pricing": "Free",
+    "likes": 365
   },
   {
     "id": "coursera",
@@ -239,12 +344,17 @@
     "url": "https://www.coursera.org",
     "description": "Online courses, specializations, and professional certificates taught by universities and industry partners.",
     "category": "Education & Learning",
-    "tags": ["Universities", "Courses", "Certificates"],
+    "tags": [
+      "Universities",
+      "Courses",
+      "Certificates"
+    ],
     "favicon": "",
     "featured": false,
     "dateAdded": "2026-11-05",
     "approved": true,
-    "pricing": "Paid"
+    "pricing": "Paid",
+    "likes": 275
   },
   {
     "id": "remove-bg",
@@ -252,12 +362,17 @@
     "url": "https://www.remove.bg",
     "description": "Automated image background removal tool that isolates subjects cleanly in seconds.",
     "category": "Utilities",
-    "tags": ["Images", "Background Removal", "Quick Tool"],
+    "tags": [
+      "Images",
+      "Background Removal",
+      "Quick Tool"
+    ],
     "favicon": "",
     "featured": false,
     "dateAdded": "2026-11-14",
     "approved": true,
-    "pricing": "Freemium"
+    "pricing": "Freemium",
+    "likes": 310
   },
   {
     "id": "tinywow",
@@ -265,12 +380,18 @@
     "url": "https://tinywow.com",
     "description": "Collection of browser utilities for converting, compressing, and editing PDFs, images, and videos.",
     "category": "Utilities",
-    "tags": ["PDF", "Converter", "Files", "Utilities"],
+    "tags": [
+      "PDF",
+      "Converter",
+      "Files",
+      "Utilities"
+    ],
     "favicon": "",
     "featured": false,
     "dateAdded": "2026-11-11",
     "approved": true,
-    "pricing": "Freemium"
+    "pricing": "Freemium",
+    "likes": 290
   },
   {
     "id": "internet-archive",
@@ -278,12 +399,18 @@
     "url": "https://archive.org",
     "description": "Nonprofit digital library preserving historical web pages via the Wayback Machine, books, audio, and software.",
     "category": "Utilities",
-    "tags": ["Archive", "Wayback Machine", "Books", "Nonprofit"],
+    "tags": [
+      "Archive",
+      "Wayback Machine",
+      "Books",
+      "Nonprofit"
+    ],
     "favicon": "",
     "featured": true,
     "dateAdded": "2026-11-19",
     "approved": true,
-    "pricing": "Free"
+    "pricing": "Free",
+    "likes": 440
   },
   {
     "id": "google-scholar",
@@ -291,12 +418,18 @@
     "url": "https://scholar.google.com",
     "description": "Search engine indexing peer-reviewed papers, theses, books, abstracts, and legal opinions.",
     "category": "Research",
-    "tags": ["Academic", "Papers", "Citations", "Search"],
+    "tags": [
+      "Academic",
+      "Papers",
+      "Citations",
+      "Search"
+    ],
     "favicon": "",
     "featured": false,
     "dateAdded": "2026-11-13",
     "approved": true,
-    "pricing": "Free"
+    "pricing": "Free",
+    "likes": 335
   },
   {
     "id": "semantic-scholar",
@@ -304,12 +437,18 @@
     "url": "https://www.semanticscholar.org",
     "description": "Research discovery tool for scientific literature with citation graphs and concise paper summaries.",
     "category": "Research",
-    "tags": ["Science", "Literature", "Citations", "Papers"],
+    "tags": [
+      "Science",
+      "Literature",
+      "Citations",
+      "Papers"
+    ],
     "favicon": "",
     "featured": false,
     "dateAdded": "2026-11-12",
     "approved": true,
-    "pricing": "Free"
+    "pricing": "Free",
+    "likes": 245
   },
   {
     "id": "virustotal",
@@ -317,12 +456,17 @@
     "url": "https://www.virustotal.com",
     "description": "Security analysis service that inspects suspicious files, domains, and URLs across multiple scanners.",
     "category": "Security & Privacy",
-    "tags": ["Security", "Malware Scanner", "URL Check"],
+    "tags": [
+      "Security",
+      "Malware Scanner",
+      "URL Check"
+    ],
     "favicon": "",
     "featured": false,
     "dateAdded": "2026-11-16",
     "approved": true,
-    "pricing": "Freemium"
+    "pricing": "Freemium",
+    "likes": 360
   },
   {
     "id": "have-i-been-pwned",
@@ -330,12 +474,18 @@
     "url": "https://haveibeenpwned.com",
     "description": "Free security check to see whether your email address or password has appeared in a known data breach.",
     "category": "Security & Privacy",
-    "tags": ["Data Breach", "Privacy", "Security", "Passwords"],
+    "tags": [
+      "Data Breach",
+      "Privacy",
+      "Security",
+      "Passwords"
+    ],
     "favicon": "",
     "featured": false,
     "dateAdded": "2026-11-18",
     "approved": true,
-    "pricing": "Free"
+    "pricing": "Free",
+    "likes": 370
   },
   {
     "id": "bitwarden",
@@ -343,12 +493,17 @@
     "url": "https://bitwarden.com",
     "description": "Open-source password manager with end-to-end encryption across desktop, mobile, and browser extensions.",
     "category": "Security & Privacy",
-    "tags": ["Passwords", "Open Source", "Encryption"],
+    "tags": [
+      "Passwords",
+      "Open Source",
+      "Encryption"
+    ],
     "favicon": "",
     "featured": false,
     "dateAdded": "2026-11-09",
     "approved": true,
-    "pricing": "Open Source"
+    "pricing": "Open Source",
+    "likes": 415
   },
   {
     "id": "hemingway-editor",
@@ -356,12 +511,18 @@
     "url": "https://hemingwayapp.com",
     "description": "Readability editor that highlights complex sentences, passive voice, and adverbs to tighten prose.",
     "category": "Writing & Content",
-    "tags": ["Editing", "Readability", "Writing", "Prose"],
+    "tags": [
+      "Editing",
+      "Readability",
+      "Writing",
+      "Prose"
+    ],
     "favicon": "",
     "featured": false,
     "dateAdded": "2026-11-10",
     "approved": true,
-    "pricing": "Freemium"
+    "pricing": "Freemium",
+    "likes": 260
   },
   {
     "id": "deepl",
@@ -369,12 +530,17 @@
     "url": "https://www.deepl.com",
     "description": "High-accuracy neural translation tool for text and documents across dozens of languages.",
     "category": "Writing & Content",
-    "tags": ["Translation", "Languages", "Writing"],
+    "tags": [
+      "Translation",
+      "Languages",
+      "Writing"
+    ],
     "favicon": "",
     "featured": false,
     "dateAdded": "2026-11-14",
     "approved": true,
-    "pricing": "Freemium"
+    "pricing": "Freemium",
+    "likes": 390
   },
   {
     "id": "google-trends",
@@ -382,12 +548,17 @@
     "url": "https://trends.google.com",
     "description": "Explore real-time and historical search interest across topics, regions, and timeframes.",
     "category": "Business & Marketing",
-    "tags": ["Market Research", "Trends", "Analytics"],
+    "tags": [
+      "Market Research",
+      "Trends",
+      "Analytics"
+    ],
     "favicon": "",
     "featured": false,
     "dateAdded": "2026-11-08",
     "approved": true,
-    "pricing": "Free"
+    "pricing": "Free",
+    "likes": 305
   },
   {
     "id": "investopedia",
@@ -395,12 +566,17 @@
     "url": "https://www.investopedia.com",
     "description": "Plain-language encyclopedia and educational reference for personal finance, investing, and economics.",
     "category": "Finance",
-    "tags": ["Personal Finance", "Economics", "Dictionary"],
+    "tags": [
+      "Personal Finance",
+      "Economics",
+      "Dictionary"
+    ],
     "favicon": "",
     "featured": false,
     "dateAdded": "2026-11-06",
     "approved": true,
-    "pricing": "Free"
+    "pricing": "Free",
+    "likes": 295
   },
   {
     "id": "alternativeto",
@@ -408,12 +584,17 @@
     "url": "https://alternativeto.net",
     "description": "Crowdsourced directory for discovering open-source, free, and cross-platform software alternatives.",
     "category": "Open Source",
-    "tags": ["Software Discovery", "Open Source", "Alternatives"],
+    "tags": [
+      "Software Discovery",
+      "Open Source",
+      "Alternatives"
+    ],
     "favicon": "",
     "featured": false,
     "dateAdded": "2026-11-19",
     "approved": true,
-    "pricing": "Free"
+    "pricing": "Free",
+    "likes": 355
   },
   {
     "id": "our-world-in-data",
@@ -421,12 +602,18 @@
     "url": "https://ourworldindata.org",
     "description": "Open-access scientific charts and research explaining global trends in health, climate, and demographics.",
     "category": "Science",
-    "tags": ["Data", "Open Access", "Charts", "Global"],
+    "tags": [
+      "Data",
+      "Open Access",
+      "Charts",
+      "Global"
+    ],
     "favicon": "",
     "featured": true,
     "dateAdded": "2026-11-20",
     "approved": true,
-    "pricing": "Free"
+    "pricing": "Free",
+    "likes": 320
   },
   {
     "id": "lichess",
@@ -434,12 +621,18 @@
     "url": "https://lichess.org",
     "description": "Completely free, ad-free, open-source chess server with puzzles, studies, and engine analysis.",
     "category": "Gaming",
-    "tags": ["Chess", "Open Source", "Puzzles", "Free"],
+    "tags": [
+      "Chess",
+      "Open Source",
+      "Puzzles",
+      "Free"
+    ],
     "favicon": "",
     "featured": false,
     "dateAdded": "2026-11-15",
     "approved": true,
-    "pricing": "Open Source"
+    "pricing": "Open Source",
+    "likes": 345
   },
   {
     "id": "radio-garden",
@@ -447,12 +640,18 @@
     "url": "https://radio.garden",
     "description": "Interactive 3D globe that lets you tune into thousands of live radio stations around the world.",
     "category": "Entertainment",
-    "tags": ["Radio", "Music", "Globe", "Live Audio"],
+    "tags": [
+      "Radio",
+      "Music",
+      "Globe",
+      "Live Audio"
+    ],
     "favicon": "",
     "featured": false,
     "dateAdded": "2026-11-16",
     "approved": true,
-    "pricing": "Free"
+    "pricing": "Free",
+    "likes": 310
   },
   {
     "id": "wolfram-alpha",
@@ -460,11 +659,17 @@
     "url": "https://www.wolframalpha.com",
     "description": "Computational knowledge engine for step-by-step math, unit conversions, physics, and factual queries.",
     "category": "Other",
-    "tags": ["Computation", "Math", "Reference", "Knowledge"],
+    "tags": [
+      "Computation",
+      "Math",
+      "Reference",
+      "Knowledge"
+    ],
     "favicon": "",
     "featured": false,
     "dateAdded": "2026-11-11",
     "approved": true,
-    "pricing": "Freemium"
+    "pricing": "Freemium",
+    "likes": 365
   }
 ]

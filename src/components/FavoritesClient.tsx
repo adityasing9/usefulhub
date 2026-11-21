@@ -3,7 +3,7 @@
 import React, { useMemo, useState } from 'react';
 import Link from 'next/link';
 import { Bookmark, Info, Trash2 } from 'lucide-react';
-import type { Website } from '../types/website';
+import type { SortOption, Website } from '../types/website';
 import { useFavorites } from '../hooks/useFavorites';
 import { filterAndSearchWebsites } from '../utils/search';
 import { SearchBar } from './SearchBar';
@@ -17,6 +17,7 @@ export function FavoritesClient({ allWebsites }: FavoritesClientProps) {
   const { favoriteIds, mounted, storageError, clearFavorites } = useFavorites();
   const [query, setQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [sort, setSort] = useState<SortOption>('liked');
 
   const savedWebsites = useMemo(() => {
     const idSet = new Set(favoriteIds);
@@ -33,9 +34,10 @@ export function FavoritesClient({ allWebsites }: FavoritesClientProps) {
       filterAndSearchWebsites(savedWebsites, {
         query,
         category: selectedCategory,
-        sort: 'recent',
+        sort,
+        favoriteIds,
       }),
-    [savedWebsites, query, selectedCategory]
+    [savedWebsites, query, selectedCategory, sort, favoriteIds]
   );
 
   return (
@@ -138,6 +140,22 @@ export function FavoritesClient({ allWebsites }: FavoritesClientProps) {
                 </select>
               </div>
             )}
+
+            <div className="flex items-center gap-2">
+              <label htmlFor="favorites-sort" className="text-xs font-medium text-slate-500 dark:text-slate-400">
+                Sort by
+              </label>
+              <select
+                id="favorites-sort"
+                value={sort}
+                onChange={(e) => setSort(e.target.value as SortOption)}
+                className="h-11 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-600"
+              >
+                <option value="liked">Liked by (Most Liked)</option>
+                <option value="name">Name (A–Z)</option>
+                <option value="recent">Recently added</option>
+              </select>
+            </div>
           </div>
 
           <WebsiteGrid

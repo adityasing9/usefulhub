@@ -59,6 +59,16 @@ test('client-side search matches name, description, category, tags, and URL case
   const alphabetical = filterAndSearchWebsites(all, { sort: 'alphabetical' });
   assert.ok(alphabetical[0].name.localeCompare(alphabetical[1].name) <= 0);
 
+  const byNameSort = filterAndSearchWebsites(all, { sort: 'name' });
+  assert.ok(byNameSort[0].name.localeCompare(byNameSort[1].name) <= 0);
+
+  const byLiked = filterAndSearchWebsites(all, { sort: 'liked' });
+  assert.ok((byLiked[0].likes ?? 0) >= (byLiked[1].likes ?? 0));
+  assert.equal(byLiked[0].id, 'github');
+
+  const byRecent = filterAndSearchWebsites(all, { sort: 'recent' });
+  assert.ok(byRecent[0].dateAdded >= byRecent[1].dateAdded);
+
   const suggestions = buildSearchSuggestions(all, 'excal');
   assert.ok(suggestions.some((s) => s.label === 'Excalidraw'));
 });

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { ArrowLeft, Shuffle } from 'lucide-react';
 import type { CategoryDefinition, SortOption, Website } from '../types/website';
 import { filterAndSearchWebsites } from '../utils/search';
+import { useFavorites } from '../hooks/useFavorites';
 import { CategoryIcon } from './CategoryIcon';
 import { SearchBar } from './SearchBar';
 import { WebsiteGrid } from './WebsiteGrid';
@@ -17,12 +18,13 @@ interface CategoryDetailClientProps {
 
 export function CategoryDetailClient({ category, websites }: CategoryDetailClientProps) {
   const { openRandomModal } = useAppModals();
+  const { favoriteIds } = useFavorites();
   const [query, setQuery] = useState('');
-  const [sort, setSort] = useState<SortOption>('recent');
+  const [sort, setSort] = useState<SortOption>('liked');
 
   const filtered = useMemo(
-    () => filterAndSearchWebsites(websites, { query, sort }),
-    [websites, query, sort]
+    () => filterAndSearchWebsites(websites, { query, sort, favoriteIds }),
+    [websites, query, sort, favoriteIds]
   );
 
   return (
@@ -89,8 +91,9 @@ export function CategoryDetailClient({ category, websites }: CategoryDetailClien
             onChange={(e) => setSort(e.target.value as SortOption)}
             className="h-10 rounded-lg border border-slate-200 dark:border-slate-700/80 bg-white dark:bg-slate-900 px-3 text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-600"
           >
+            <option value="liked">Liked by (Most Liked)</option>
+            <option value="name">Name (A–Z)</option>
             <option value="recent">Recently added</option>
-            <option value="alphabetical">Alphabetical (A–Z)</option>
             <option value="featured">Featured first</option>
           </select>
         </div>

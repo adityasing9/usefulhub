@@ -4,6 +4,7 @@ export interface SearchOptions {
   query?: string;
   category?: string;
   sort?: SortOption;
+  favoriteIds?: string[];
 }
 
 export interface SearchSuggestion {
@@ -43,14 +44,32 @@ function scoreWebsiteMatch(site: Website, terms: string[]): number {
   return totalScore;
 }
 
-export function sortWebsites(sites: Website[], sort: SortOption = 'recent'): Website[] {
+function getSiteLikes(site: Website, favoriteIds: string[] = []): number {
+  const base = typeof site.likes === 'number' ? site.likes : 0;
+  return base + (favoriteIds.includes(site.id) ? 1 : 0);
+}
+
+export function sortWebsites(
+  sites: Website[],
+  sort: SortOption = 'liked',
+  favoriteIds: string[] = []
+): Website[] {
   const copy = [...sites];
   switch (sort) {
+    case 'liked':
+      return copy.sort((a, b) => {
+        const diff = getSiteLikes(b, favoriteIds) - getSiteLikes(a, favoriteIds);
+        if (diff !== 0) return diff;
+        return b.dateAdded.localeCompare(a.dateAdded) || a.name.localeCompare(b.name);
+      });
+    case 'name':
     case 'alphabetical':
       return copy.sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }));
     case 'featured':
       return copy.sort((a, b) => {
         if (a.featured !== b.featured) return a.featured ? -1 : 1;
+        const diff = getSiteLikes(b, favoriteIds) - getSiteLikes(a, favoriteIds);
+        if (diff !== 0) return diff;
         return b.dateAdded.localeCompare(a.dateAdded) || a.name.localeCompare(b.name);
       });
     case 'recent':
@@ -65,7 +84,7 @@ export function filterAndSearchWebsites(
   sites: Website[],
   options: SearchOptions = {}
 ): Website[] {
-  const { query = '', category = 'All', sort = 'recent' } = options;
+  const { query = '', category = 'All', sort = 'liked', favoriteIds = [] } = options;
 
   let filtered = sites.filter((site) => site.approved === true);
 
@@ -76,7 +95,7 @@ export function filterAndSearchWebsites(
 
   const trimmed = query.trim().toLowerCase();
   if (!trimmed) {
-    return sortWebsites(filtered, sort);
+    return sortWebsites(filtered, sort, favoriteIds);
   }
 
   const terms = trimmed.split(/\s+/).filter(Boolean);
@@ -84,7 +103,17 @@ export function filterAndSearchWebsites(
     .map((site) => ({ site, score: scoreWebsiteMatch(site, terms) }))
     .filter((entry) => entry.score > 0);
 
-  if (sort === 'alphabetical') {
+  if (sort === 'liked') {
+    return scored
+      .sort((a, b) => {
+        const diff = getSiteLikes(b.site, favoriteIds) - getSiteLikes(a.site, favoriteIds);
+        if (diff !== 0) return diff;
+        return b.score - a.score;
+      })
+      .map((e) => e.site);
+  }
+
+  if (sort === 'name' || sort === 'alphabetical') {
     return scored
       .map((e) => e.site)
       .sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }));

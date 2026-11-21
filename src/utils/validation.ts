@@ -312,6 +312,10 @@ export function validateSitesJsonPayload(rawData: unknown): JsonImportResult {
       record.pricing === 'Open Source'
         ? record.pricing
         : undefined;
+    const likes =
+      typeof record.likes === 'number' && Number.isFinite(record.likes) && record.likes >= 0
+        ? Math.round(record.likes)
+        : undefined;
 
     if (!id) errors.push(`${row}: missing required string field "id".`);
     if (!name) errors.push(`${row}: missing required string field "name".`);
@@ -359,6 +363,7 @@ export function validateSitesJsonPayload(rawData: unknown): JsonImportResult {
           : new Date().toISOString().slice(0, 10),
         approved,
         ...(pricing ? { pricing } : {}),
+        ...(typeof likes === 'number' ? { likes } : {}),
       });
     }
   });

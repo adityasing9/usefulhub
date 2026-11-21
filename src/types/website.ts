@@ -30,6 +30,7 @@ export interface Website {
   dateAdded: string; // YYYY-MM-DD
   approved: boolean;
   pricing?: PricingModel;
+  likes?: number;
 }
 
 export interface CategoryDefinition {
@@ -55,7 +56,7 @@ export interface CategoryDefinition {
     | 'Compass';
 }
 
-export type SortOption = 'recent' | 'alphabetical' | 'featured';
+export type SortOption = 'liked' | 'name' | 'recent' | 'featured' | 'alphabetical';
 
 export interface WebsiteSubmissionInput {
   name: string;

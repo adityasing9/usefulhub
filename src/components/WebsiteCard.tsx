@@ -48,7 +48,11 @@ export function WebsiteCard({
           </div>
 
           {!disableFavorite && (
-            <FavoriteButton websiteId={website.id} websiteName={website.name} />
+            <FavoriteButton
+              websiteId={website.id}
+              websiteName={website.name}
+              likes={website.likes}
+            />
           )}
         </div>
 

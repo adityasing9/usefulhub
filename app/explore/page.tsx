@@ -23,7 +23,12 @@ export default async function ExplorePage({ searchParams }: ExplorePageProps) {
   const categories = getAllCategories();
 
   const initialSort: SortOption =
-    params.sort === 'alphabetical' || params.sort === 'featured' ? params.sort : 'recent';
+    params.sort === 'name' ||
+    params.sort === 'alphabetical' ||
+    params.sort === 'recent' ||
+    params.sort === 'featured'
+      ? (params.sort as SortOption)
+      : 'liked';
 
   return (
     <ExploreClient

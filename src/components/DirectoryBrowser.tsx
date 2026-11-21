@@ -4,6 +4,7 @@ import React, { useMemo, useState } from 'react';
 import { ChevronLeft, ChevronRight, SlidersHorizontal, X } from 'lucide-react';
 import type { CategoryDefinition, SortOption, Website } from '../types/website';
 import { siteConfig } from '../config/siteConfig';
+import { useFavorites } from '../hooks/useFavorites';
 import { filterAndSearchWebsites } from '../utils/search';
 import { SearchBar } from './SearchBar';
 import { WebsiteGrid } from './WebsiteGrid';
@@ -27,7 +28,7 @@ export function DirectoryBrowser({
   categories,
   initialQuery = '',
   initialCategory = 'All',
-  initialSort = 'recent',
+  initialSort = 'liked',
   sectionId = 'discover',
   heading = 'Discover websites',
   subheading = 'Search, filter by category, or sort every approved entry in the directory.',
@@ -35,6 +36,7 @@ export function DirectoryBrowser({
   externalQuery,
   onExternalQueryChange,
 }: DirectoryBrowserProps) {
+  const { favoriteIds } = useFavorites();
   const [internalQuery, setInternalQuery] = useState(initialQuery);
   const [selectedCategory, setSelectedCategory] = useState(initialCategory);
   const [sort, setSort] = useState<SortOption>(initialSort);
@@ -54,8 +56,9 @@ export function DirectoryBrowser({
         query,
         category: selectedCategory,
         sort,
+        favoriteIds,
       }),
-    [websites, query, selectedCategory, sort]
+    [websites, query, selectedCategory, sort, favoriteIds]
   );
 
   const pageSize = siteConfig.itemsPerPage;
@@ -75,7 +78,7 @@ export function DirectoryBrowser({
   const handleReset = () => {
     setQuery('');
     setSelectedCategory('All');
-    setSort('recent');
+    setSort('liked');
     setPage(1);
   };
 
@@ -104,8 +107,9 @@ export function DirectoryBrowser({
             }}
             className="h-10 rounded-lg border border-slate-200 dark:border-slate-700/80 bg-white dark:bg-slate-900 px-3 text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-600"
           >
+            <option value="liked">Liked by (Most Liked)</option>
+            <option value="name">Name (A–Z)</option>
             <option value="recent">Recently added</option>
-            <option value="alphabetical">Alphabetical (A–Z)</option>
             <option value="featured">Featured first</option>
           </select>
         </div>
