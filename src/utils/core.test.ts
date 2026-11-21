@@ -197,3 +197,39 @@ test('random website returns an approved website and respects category filter', 
   const bySlug = getWebsitesByCategory('developer-tools');
   assert.ok(bySlug.length >= 4);
 });
+
+test('admin authentication verifies passwords, generates HMAC tokens, and enforces rate limiting', async () => {
+  const {
+    verifyPassword,
+    createSessionToken,
+    verifySessionToken,
+    isRateLimited,
+    recordLoginAttempt,
+  } = await import('./adminAuth');
+
+  assert.equal(verifyPassword('wrong-password'), false);
+  assert.equal(verifyPassword(''), false);
+  assert.equal(verifyPassword(process.env.ADMIN_PASSWORD || 'usefulhub@admin2026'), true);
+
+  const token = await createSessionToken();
+  assert.ok(typeof token === 'string' && token.includes('.'));
+  assert.equal(await verifySessionToken(token), true);
+
+  assert.equal(await verifySessionToken('tampered.signature'), false);
+  assert.equal(await verifySessionToken('bad-token'), false);
+  assert.equal(await verifySessionToken(undefined), false);
+
+  const testIp = 'test-client-ip';
+  recordLoginAttempt(testIp, true);
+  assert.equal(isRateLimited(testIp).locked, false);
+
+  for (let i = 0; i < 5; i += 1) {
+    recordLoginAttempt(testIp, false);
+  }
+  const lockedStatus = isRateLimited(testIp);
+  assert.equal(lockedStatus.locked, true);
+  assert.ok(lockedStatus.remainingSeconds > 0);
+
+  recordLoginAttempt(testIp, true);
+  assert.equal(isRateLimited(testIp).locked, false);
+});

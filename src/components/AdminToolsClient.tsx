@@ -4,13 +4,19 @@ import React, { useMemo, useRef, useState } from 'react';
 import {
   AlertTriangle,
   Check,
+  CloudUpload,
   Copy,
   Download,
   Edit3,
+  ExternalLink,
+  Globe,
   Info,
+  Key,
+  LogOut,
   Plus,
   RotateCcw,
   Search,
+  ShieldCheck,
   Star,
   Trash2,
   Upload,
@@ -27,10 +33,12 @@ import {
   triggerJsonDownload,
 } from '../utils/jsonImportExport';
 import { WebsiteCard } from './WebsiteCard';
+import { AdminLoginGate } from './AdminLoginGate';
 
 interface AdminToolsClientProps {
   initialWebsites: Website[];
   categories: CategoryDefinition[];
+  initialAuthenticated?: boolean;
 }
 
 interface EditorState {
@@ -61,9 +69,22 @@ function createEmptyEditor(defaultCategory: string): EditorState {
   };
 }
 
-export function AdminToolsClient({ initialWebsites, categories }: AdminToolsClientProps) {
+export function AdminToolsClient({
+  initialWebsites,
+  categories,
+  initialAuthenticated = false,
+}: AdminToolsClientProps) {
   const defaultCat = categories[0]?.name ?? 'Other';
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const [authenticated, setAuthenticated] = useState<boolean>(initialAuthenticated);
+  const [publishing, setPublishing] = useState(false);
+  const [publishSuccessUrl, setPublishSuccessUrl] = useState<string | null>(null);
+  const [githubToken, setGithubToken] = useState(() => {
+    if (typeof window === 'undefined') return '';
+    return window.localStorage.getItem('usefulhub_admin_pat') || '';
+  });
+  const [showTokenSettings, setShowTokenSettings] = useState(false);
 
   const [sites, setSites] = useState<Website[]>(initialWebsites);
   const [editor, setEditor] = useState<EditorState>(() => createEmptyEditor(defaultCat));
@@ -285,18 +306,91 @@ export function AdminToolsClient({ initialWebsites, categories }: AdminToolsClie
     e.target.value = '';
   };
 
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/admin/auth', { method: 'DELETE' });
+    } catch {}
+    setAuthenticated(false);
+  };
+
+  const handleSaveGithubToken = (tok: string) => {
+    const trimmed = tok.trim();
+    setGithubToken(trimmed);
+    if (typeof window !== 'undefined') {
+      if (trimmed) {
+        window.localStorage.setItem('usefulhub_admin_pat', trimmed);
+      } else {
+        window.localStorage.removeItem('usefulhub_admin_pat');
+      }
+    }
+  };
+
+  const handlePublishOnline = async () => {
+    setPublishing(true);
+    setFormError(null);
+    setStatusMessage(null);
+    setPublishSuccessUrl(null);
+
+    try {
+      const res = await fetch('/api/admin/publish', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          sites,
+          commitMessage: `Update directory via UsefulHub Admin: ${sites.length} approved websites`,
+          githubToken: githubToken || undefined,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        setFormError(data.error || 'Failed to publish to production.');
+        setPublishing(false);
+        return;
+      }
+
+      if (data.requiresToken) {
+        setShowTokenSettings(true);
+        setStatusMessage(data.message);
+      } else if (data.published) {
+        setPublishSuccessUrl(data.commitUrl);
+        setStatusMessage(
+          `Live deployment initiated! Committed ${data.sitesCount} websites to GitHub (${data.commitSha}). Vercel is building the live production site.`
+        );
+      }
+    } catch {
+      setFormError('Network error while publishing to production.');
+    } finally {
+      setPublishing(false);
+    }
+  };
+
+  if (!authenticated) {
+    return <AdminLoginGate onAuthenticated={() => setAuthenticated(true)} />;
+  }
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
-      {/* Header & Local-Only Notice */}
+      {/* Header & Online Controls */}
       <div className="space-y-5 pb-8 border-b border-slate-200 dark:border-slate-800">
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-5">
-          <div>
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-400 dark:border-emerald-900/60">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                Online Admin Active
+              </span>
+              <span className="inline-flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400">
+                <ShieldCheck className="w-3.5 h-3.5 text-blue-600" aria-hidden="true" />
+                Protected Session
+              </span>
+            </div>
             <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
-              Local Admin Utility
+              Administrator Portal
             </h1>
-            <p className="mt-2 text-base text-slate-600 dark:text-slate-400 max-w-2xl">
-              Manage approved websites, validate URLs, preview cards, and export updated JSON data
-              for your repository.
+            <p className="text-base text-slate-600 dark:text-slate-400 max-w-2xl">
+              Curate, edit, and publish approved websites directly to production from any device.
             </p>
           </div>
 
@@ -309,56 +403,131 @@ export function AdminToolsClient({ initialWebsites, categories }: AdminToolsClie
               className="sr-only"
               aria-label="Upload sites.json file"
             />
+
+            <button
+              type="button"
+              onClick={handlePublishOnline}
+              disabled={publishing}
+              className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-medium rounded-lg bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white transition-colors cursor-pointer shadow-sm"
+              title="Publish directory changes directly to GitHub and trigger live Vercel deploy"
+            >
+              {publishing ? (
+                <>
+                  <span className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  <span>Publishing...</span>
+                </>
+              ) : (
+                <>
+                  <CloudUpload className="w-3.5 h-3.5" aria-hidden="true" />
+                  <span>Publish to Production</span>
+                </>
+              )}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setShowTokenSettings((p) => !p)}
+              className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+              title="Configure GitHub Personal Access Token for direct production publishing"
+            >
+              <Key className="w-3.5 h-3.5" aria-hidden="true" />
+              <span>{githubToken ? 'GitHub Token: Saved' : 'Set GitHub Token'}</span>
+            </button>
+
             <button
               type="button"
               onClick={() => setImportOpen((prev) => !prev)}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-medium rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors cursor-pointer"
             >
               <Upload className="w-3.5 h-3.5" aria-hidden="true" />
-              <span>Import JSON</span>
+              <span>Import</span>
             </button>
-            <button
-              type="button"
-              onClick={handleCopyJson}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-medium rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors cursor-pointer"
-            >
-              {copiedJson ? (
-                <Check className="w-3.5 h-3.5 text-emerald-600" aria-hidden="true" />
-              ) : (
-                <Copy className="w-3.5 h-3.5" aria-hidden="true" />
-              )}
-              <span>{copiedJson ? 'Copied JSON' : 'Copy JSON'}</span>
-            </button>
+
             <button
               type="button"
               onClick={handleDownloadJson}
-              className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-medium rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors cursor-pointer"
             >
               <Download className="w-3.5 h-3.5" aria-hidden="true" />
-              <span>Download sites.json</span>
+              <span>Download</span>
             </button>
+
             <button
               type="button"
-              onClick={() => {
-                setSites(initialWebsites);
-                setEditor(createEmptyEditor(defaultCat));
-                setStatusMessage('Reset local editor to bundled sites.json.');
-              }}
-              className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white cursor-pointer"
+              onClick={handleLogout}
+              className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-lg border border-red-200 dark:border-red-900/60 bg-red-50/50 dark:bg-red-950/20 text-red-600 dark:text-red-400 hover:bg-red-100/60 dark:hover:bg-red-950/40 transition-colors cursor-pointer"
+              title="Sign out of Administrator Portal"
             >
-              <RotateCcw className="w-3.5 h-3.5" aria-hidden="true" />
-              <span>Reset</span>
+              <LogOut className="w-3.5 h-3.5" aria-hidden="true" />
+              <span>Sign Out</span>
             </button>
           </div>
         </div>
 
+        {/* GitHub Token Settings Banner */}
+        {showTokenSettings && (
+          <div className="rounded-xl border border-blue-200 dark:border-blue-900/80 bg-blue-50/80 dark:bg-blue-950/30 p-4 space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-semibold text-blue-900 dark:text-blue-100 flex items-center gap-2">
+                <Globe className="w-4 h-4 text-blue-600" />
+                Online Publishing Configuration (GitHub API)
+              </span>
+              <button
+                type="button"
+                onClick={() => setShowTokenSettings(false)}
+                className="text-xs text-slate-500 hover:text-slate-900 dark:hover:text-white"
+              >
+                Close
+              </button>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+              To publish changes directly to your GitHub repository (<code className="font-mono">adityasing9/usefulhub</code>) from this browser, provide a GitHub Personal Access Token (PAT) with <code className="font-mono">repo</code> scope. Alternatively, you can add <code className="font-mono">GITHUB_TOKEN</code> to your Vercel Project Environment Variables.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-2">
+              <input
+                type="password"
+                placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
+                value={githubToken}
+                onChange={(e) => handleSaveGithubToken(e.target.value)}
+                className="flex-1 h-9 px-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-xs font-mono text-slate-900 dark:text-slate-100"
+              />
+              <button
+                type="button"
+                onClick={() => {
+                  handleSaveGithubToken(githubToken);
+                  setStatusMessage('GitHub token updated in your local browser storage.');
+                  setShowTokenSettings(false);
+                }}
+                className="px-3 py-1.5 rounded-lg bg-blue-600 text-white text-xs font-medium hover:bg-blue-700"
+              >
+                Save Token
+              </button>
+            </div>
+          </div>
+        )}
+
+        {publishSuccessUrl && (
+          <div className="rounded-xl border border-emerald-200 dark:border-emerald-900/80 bg-emerald-50 dark:bg-emerald-950/40 p-4 flex items-center justify-between gap-3 text-sm text-emerald-900 dark:text-emerald-200">
+            <div className="flex items-center gap-2">
+              <Check className="w-4 h-4 text-emerald-600 shrink-0" />
+              <span>Production commit created! Vercel is deploying your live directory updates.</span>
+            </div>
+            <a
+              href={publishSuccessUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 font-semibold underline text-emerald-700 dark:text-emerald-300"
+            >
+              <span>View GitHub Commit</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+          </div>
+        )}
+
         <div className="rounded-xl border border-blue-200 dark:border-blue-900/70 bg-blue-50/70 dark:bg-blue-950/30 p-4 flex items-start gap-3">
           <Info className="w-4 h-4 text-blue-700 dark:text-blue-400 shrink-0 mt-0.5" aria-hidden="true" />
           <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">
-            The admin utility edits data locally in your browser. To publish your changes, download
-            the updated JSON file and replace the project&apos;s{' '}
-            <code className="font-mono text-xs">src/data/sites.json</code> file, then push your
-            changes to GitHub.
+            <strong>Online Admin Mode:</strong> You can edit, approve, and add websites directly from any browser or device. Click <strong className="text-emerald-700 dark:text-emerald-400">Publish to Production</strong> to commit updates directly to GitHub and trigger a live Vercel deployment. You can also import or download offline JSON backups at any time.
           </p>
         </div>
 
