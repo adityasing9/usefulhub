@@ -1,0 +1,7 @@
+.antigravity
+.aistudio
+.playwright-cli
+.vscode
+.git
+.github
+*.test.ts
